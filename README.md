@@ -1,4 +1,4 @@
-# Demo human reidentification, human trajectory tracking và human counting cho mama Hải
+# Demo human reidentification, human detector
 ## Dependencies
 ### Libraries:
 - torch
@@ -17,6 +17,4 @@ Download các file `.pt` về, tạo một folder tên `weights` và copy tất 
 ## Usage
 Run `python main.py` from terminal.
 
-## Note
-Kì này mà không đc ra trường là tại Samsung. </br>
-Cho Hiền hạn trong 1 tuần phải làm xong báo cáo Samsung. </br>
+
