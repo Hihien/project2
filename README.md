@@ -1,4 +1,4 @@
-# Demo human reidentification, human detector
+# Human detection and counting
 ## Dependencies
 ### Libraries:
 - torch
@@ -12,9 +12,6 @@ Download các file `.pt` về, tạo một folder tên `weights` và copy tất 
 | yolov5m (medium)      | https://github.com/ultralytics/yolov5/releases/download/v3.0/weights/yolov5m.pt |
 | yolov5l (large)       | https://github.com/ultralytics/yolov5/releases/download/v3.0/weights/yolov5l.pt |
 | yolov5x (extra-large) | https://github.com/ultralytics/yolov5/releases/download/v3.0/weights/yolov5x.pt |
-| ckpt.t7 (tracking)    | https://drive.google.com/drive/folders/1xhG0kRH1EX5B9_Iz8gQJb7UNnn_riXi6        |
 
 ## Usage
 Run `python main.py` from terminal.
-
-

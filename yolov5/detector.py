@@ -40,7 +40,7 @@ class Detector:
         for i in range(len(detections)):  # detections per image
             im0 = im0s[i]
             det = detections[i]
-            if det is not None and len(det):
+            if len(det) > 0:
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(det[:, :4], imgs.shape[2:], im0.shape)
                 detections[i] = det
