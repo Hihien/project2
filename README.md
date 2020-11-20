@@ -1,1 +1,1 @@
-### Đồ án dễ này mình bà gánh cả nhóm
+### thầy Chính mà cho A thì tuyệt vời :3
