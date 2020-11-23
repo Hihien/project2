@@ -27,7 +27,7 @@ class MeanEstimator:
 def plot_bboxes(img, det, label=None, line_thickness=3):
     # Plots one bounding box on image img
     for i, (x1, y1, x2, y2, conf, cls) in enumerate(det.cpu().numpy()):
-        color = __colors[i % len(__colors)]
+        color = __colors[0]
         p1, p2 = (round(x1), round(y1)), (round(x2), round(y2))
         cv2.rectangle(img, p1, p2, color, thickness=line_thickness, lineType=cv2.LINE_AA)
         if label is not None:

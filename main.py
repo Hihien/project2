@@ -14,7 +14,7 @@ def main():
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
     print('Loading models')
-    detector = Detector('weights/yolov5m.pt', img_size=(640, 640),
+    detector = Detector('weights/yolov5s.pt', img_size=(640, 640),
                         conf_thresh=0.4, iou_thresh=0.5, agnostic_nms=False,
                         device=device)
     fps_estimator = MeanEstimator()
