@@ -3,6 +3,9 @@ import time
 import cv2
 import torch
 
+from tqdm import tqdm
+
+from sort import Tracker
 from yolov5 import Detector
 from utils import *
 
@@ -17,8 +20,9 @@ def main():
     detector = Detector('weights/yolov5s.pt', img_size=(640, 640),
                         conf_thresh=0.4, iou_thresh=0.5, agnostic_nms=False,
                         device=device)
-    fps_estimator = MeanEstimator()
+    tracker = Tracker(max_age=10, min_hits=3, iou_threshold=0.5)
     person_cls_id = detector.names.index('person')  # get id of 'person' class
+    fps_estimator = MeanEstimator()
 
     width, height = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     cam_fps = int(cap.get(cv2.CAP_PROP_FPS))
@@ -28,7 +32,8 @@ def main():
     win_name = 'Camera Pi Demo'
     cv2.namedWindow(win_name, cv2.WINDOW_GUI_NORMAL | cv2.WINDOW_FREERATIO)
     cv2.resizeWindow(win_name, width, height)
-    frame_id = 0
+    pbar = tqdm(desc=f'[{win_name}]')
+
     while True:
         start_it = time.time()
         ret, img = cap.read()
@@ -39,6 +44,7 @@ def main():
 
         num_people = 0
         detections = detections[detections[:, -1].eq(person_cls_id)]  # filter person
+        detections = tracker(detections)  # add track_id
         num_people = len(detections)
         # draw detections
         plot_bboxes(img, detections,
@@ -54,18 +60,19 @@ def main():
 
         # show
         cv2.imshow(win_name, img)
-        key = cv2.waitKey(1)
         elapsed_time = time.time() - start_it
         fps = fps_estimator.update(1 / elapsed_time)
-        print(f'[{frame_id:06d}] num_detections={num_people} fps={fps:.02f} elapsed_time={elapsed_time:.03f}')
+        pbar.set_description(f'[{win_name}] num_detections={num_people} fps={fps:.02f} elapsed_time={elapsed_time:.03f}')
+        pbar.update(1)
+
         # check key pressed
+        key = cv2.waitKey(1)
         if key == ord('q') or key == 27:  # q or esc to quit
             break
         elif key == 32:  # space to pause
             key = cv2.waitKey(0)
             if key == ord('q') or key == 27:
                 break
-        frame_id += 1
     cv2.destroyAllWindows()
     cap.release()
 

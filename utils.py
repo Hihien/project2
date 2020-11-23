@@ -7,8 +7,6 @@ __all__ = [
     'plot_bboxes',
 ]
 
-__colors = [[random.randint(0, 255) for _ in range(3)] for _ in range(32)]
-
 
 class MeanEstimator:
     def __init__(self):
@@ -24,10 +22,9 @@ class MeanEstimator:
         return self.mean
 
 
-def plot_bboxes(img, det, label=None, line_thickness=3):
+def plot_bboxes(img, det, label=None, color=(200, 200, 0), line_thickness=3):
     # Plots one bounding box on image img
-    for i, (x1, y1, x2, y2, conf, cls) in enumerate(det.cpu().numpy()):
-        color = __colors[0]
+    for i, (x1, y1, x2, y2, conf, cls, track_id) in enumerate(det.cpu().numpy()):
         p1, p2 = (round(x1), round(y1)), (round(x2), round(y2))
         cv2.rectangle(img, p1, p2, color, thickness=line_thickness, lineType=cv2.LINE_AA)
         if label is not None:
