@@ -16,23 +16,15 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-import torch.nn as nn
 import torch.distributed as distributed
+import torch.nn as nn
 import torchvision
 import yaml
 from scipy.cluster.vq import kmeans
 from scipy.signal import butter, filtfilt
 from tqdm import tqdm
 
-from yolov5.utils.torch_utils import init_seeds, is_parallel
-
-# Set printoptions
-torch.set_printoptions(linewidth=320, precision=5, profile='long')
-np.set_printoptions(linewidth=320, formatter={'float_kind': '{:11.5g}'.format})  # format short g, %precision=5
-matplotlib.rc('font', **{'size': 11})
-
-# Prevent OpenCV from multithreading (to use PyTorch DataLoader)
-cv2.setNumThreads(0)
+from .torch_utils import is_parallel
 
 
 @contextmanager

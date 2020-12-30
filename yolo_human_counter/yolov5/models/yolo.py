@@ -9,9 +9,10 @@ import torch.nn as nn
 
 from . import Conv, Bottleneck, SPP, DWConv, Focus, BottleneckCSP, Concat
 from . import MixConv2d, CrossConv, C3
-from yolov5.utils import check_anchor_order, make_divisible, check_file, set_logging
-from yolov5.utils.torch_utils import (
-    fuse_conv_and_bn, model_info, scale_img, initialize_weights, select_device)
+from yolo_human_counter.yolov5.utils import check_anchor_order, make_divisible, check_file, set_logging
+from yolo_human_counter.yolov5.utils.torch_utils import (
+    fuse_conv_and_bn, model_info, scale_img, initialize_weights, select_device
+)
 
 logger = logging.getLogger(__name__)
 
